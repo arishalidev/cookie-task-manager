@@ -4,10 +4,13 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "dev:ts": "tsc --watch",
+    "dev:css": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "dev": "concurrently \"npm run dev:ts\" \"npm run dev:css\""
   },
-  "dependencies": {},
   "devDependencies": {
+    "concurrently": "^9.2.1",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5.5.3"
   },
   "private": true
