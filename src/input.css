@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+
+@theme {
+    --color-brown-100: oklch(0.9557 0.030857 67.4451);
+    --color-brown-200: oklch(0.8706 0.0437 51.18);
+    --color-brown-300: oklch(0.8127 0.0601 49.05);
+    --color-brown-400: oklch(0.6944 0.072 58.29);
+
+
+}
