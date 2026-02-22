@@ -15,10 +15,24 @@
                     <button class="w-40 text-left" type="button">Bob's Bakery</button>
                 </div>
                 <div>
-                    <button class="px-2 hover:bg-brown-300 rounded-xl" type="button" id="newOven">➕</button>
+                    <button class="px-2 hover:bg-brown-300 rounded-xl"
+                            type="button"
+                            id="newOven"
+                            popovertarget="newOvenModal"
+                            style="anchor-name: --newOvenAnchor">
+                        ➕
+                    </button>
+
                 </div>
             </div>
 
+            <div
+                    popover
+                    id="newOvenModal"
+                    class="bg-brown-400 fixed left-[anchor(right)] top-[anchor(bottom)] -ml-2 -mt-2 rounded-2xl p-4"
+                    style="position-anchor: --newOvenAnchor">
+                <p>hello!</p>
+            </div>
 
             <div>
                 <div class="p-2 mx-3 my-1 hover:bg-brown-300 rounded-xl">
