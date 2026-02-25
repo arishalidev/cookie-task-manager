@@ -31,7 +31,43 @@
                     id="newOvenModal"
                     class="bg-brown-400 fixed left-[anchor(right)] top-[anchor(bottom)] -ml-2 -mt-2 rounded-2xl p-4"
                     style="position-anchor: --newOvenAnchor">
-                <p>hello!</p>
+                <form>
+                    <div>
+                        <div class="flex">
+                            <div>
+                                <label>
+                                    Title:
+                                    <input class="bg-brown-200 rounded-md m-2 px-2 py-1" type="text">
+                                </label>
+                            </div>
+                            <div>
+                                <button class="bg-brown-200 rounded-md m-2 px-2 py-1" id="setTag">🏷️</button>
+                                <button class="bg-brown-200 rounded-md m-2 px-2 py-1" id="setPriority">⭐</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                Description:
+                                <br>
+                                <textarea
+                                        class="bg-brown-200 rounded-md my-2 px-2 py-1 w-full"
+                                        rows="3"></textarea>
+                            </label>
+                        </div>
+                        <div>
+                            <p>Cookies:</p>
+                            <label>
+                                -
+                                <input class="bg-brown-200 rounded-md m-2" type="text">
+                            </label>
+                        </div>
+                        <div class="flex">
+                            <button type="submit">Delete</button>
+                            <button type="submit">Create</button>
+                        </div>
+                    </div>
+                </form>
+
             </div>
 
             <div>
