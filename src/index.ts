@@ -45,7 +45,6 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
     // Add a popup informing user new oven is created
     // Implement tag and priority buttons
     // Implement dynamic number of cookies when creating oven
-    // Implement cancel button
     // Allow for multiple ovens being saved in browser
     // Display ovens and cookies in home page
 
