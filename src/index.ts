@@ -43,7 +43,6 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
 
     //TODO:
     // Add a popup informing user new oven is created
-    // Exit out of popup on form create
     // Implement tag and priority buttons
     // Implement dynamic number of cookies when creating oven
     // Implement cancel button
@@ -51,4 +50,5 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
     // Display ovens and cookies in home page
 
     newOvenForm?.reset();
+    document.querySelector<HTMLDivElement>('#newOvenPopover')?.hidePopover();
 });
