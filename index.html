@@ -26,11 +26,11 @@
                 </div>
             </div>
 
-            <div
-                    popover
-                    id="newOvenPopover"
-                    class="bg-brown-400 fixed left-[anchor(right)] top-[anchor(bottom)] -ml-2 -mt-2 rounded-2xl p-4"
-                    style="position-anchor: --newOvenAnchor">
+            <!-- New oven popover -->
+            <div popover
+                 id="newOvenPopover"
+                 class="bg-brown-400 fixed left-[anchor(right)] top-[anchor(bottom)] -ml-2 -mt-2 rounded-2xl p-4"
+                 style="position-anchor: --newOvenAnchor">
                 <form id="newOvenForm">
                     <div>
                         <div class="flex">
@@ -41,8 +41,39 @@
                                 </label>
                             </div>
                             <div>
-                                <button class="bg-brown-300 rounded-md m-2 px-2 py-1" id="setTag">🏷️</button>
-                                <button class="bg-brown-300 rounded-md m-2 px-2 py-1" id="setPriority">⭐</button>
+                                <button
+                                        class="bg-brown-300 rounded-md m-2 px-2 py-1"
+                                        id="setTag"
+                                        type="button"
+                                        popovertarget="selectNewOvenTagPopover"
+                                        style="anchor-name: --selectNewOvenTagAnchor">🏷️
+                                </button>
+
+                                <!-- Select tag popover -->
+                                <div
+                                        popover
+                                        id="selectNewOvenTagPopover"
+                                        class="bg-brown-200 fixed left-[anchor(right)] top-[anchor(bottom)] -ml-1 -mt-1 rounded-md p2"
+                                        style="position-anchor: --selectNewOvenTagAnchor">
+                                    <div class="p-2">
+                                        <input type="radio" id="red" name="newOvenTag" value="red">
+                                        <label for="red">red</label><br>
+                                        <input type="radio" id="orange" name="newOvenTag" value="orange">
+                                        <label for="orange">orange</label><br>
+                                        <input type="radio" id="yellow" name="newOvenTag" value="yellow">
+                                        <label for="yellow">yellow</label><br>
+                                        <input type="radio" id="green" name="newOvenTag" value="green">
+                                        <label for="green">green</label><br>
+                                        <input type="radio" id="blue" name="newOvenTag" value="blue">
+                                        <label for="blue">blue</label><br>
+                                        <input type="radio" id="violet" name="newOvenTag" value="violet">
+                                        <label for="violet">violet</label><br>
+
+                                    </div>
+                                </div>
+
+                                <button class="bg-brown-300 rounded-md m-2 px-2 py-1" id="setPriority" type="button">⭐
+                                </button>
                             </div>
                         </div>
                         <div>
