@@ -52,3 +52,7 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
     newOvenForm?.reset();
     document.querySelector<HTMLDivElement>('#newOvenPopover')?.hidePopover();
 });
+
+newOvenForm?.addEventListener('reset', () => {
+    document.querySelector<HTMLDivElement>('#newOvenPopover')?.hidePopover();
+})
