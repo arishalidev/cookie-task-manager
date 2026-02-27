@@ -40,4 +40,15 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
     };
 
     localStorage.setItem('oven_data', JSON.stringify(ovenData));
+
+    //TODO:
+    // Add a popup informing user new oven is created
+    // Exit out of popup on form create
+    // Implement tag and priority buttons
+    // Implement dynamic number of cookies when creating oven
+    // Implement cancel button
+    // Allow for multiple ovens being saved in browser
+    // Display ovens and cookies in home page
+
+    newOvenForm?.reset();
 });
