@@ -10,16 +10,12 @@ interface OvenData {
     tags: string[];
     priority: string;
     cookies: CookieData[];
-
 }
 
 newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
     event.preventDefault();
 
     const formData = new FormData(newOvenForm);
-
-    console.log(formData.getAll('newOvenTag'));
-    console.log(formData.get('newOvenPriority'));
 
     const ovenTitle: string = formData.get('title') as string ?? "";
     const ovenDescription: string = formData.get('description') as string ?? "";
@@ -44,13 +40,21 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
         cookies: cookies
     };
 
-    localStorage.setItem('oven_data', JSON.stringify(ovenData));
+    let index: number = Number(localStorage.getItem('number_of_ovens'));
+
+    if (Number.isNaN(index)) {
+        validateLocalStorage();
+        index = 0;
+    }
+
+    const key = 'oven_data_' + (index).toString();
+    localStorage.setItem(key, JSON.stringify(ovenData));
+    localStorage.setItem('number_of_ovens', (index + 1).toString());
 
     //TODO:
     // Add a popup informing user new oven is created
     // Implement tag and priority buttons
     // Implement dynamic number of cookies when creating oven
-    // Allow for multiple ovens being saved in browser
     // Display ovens and cookies in home page
 
     newOvenForm?.reset();
@@ -60,3 +64,19 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
 newOvenForm?.addEventListener('reset', () => {
     document.querySelector<HTMLDivElement>('#newOvenPopover')?.hidePopover();
 })
+
+function validateLocalStorage() {
+    const numOfOvens = localStorage.getItem('number_of_ovens')
+    if (numOfOvens === null) {
+        localStorage.setItem('number_of_ovens', '0');
+    }
+
+    const numOfCookies = localStorage.getItem('number_of_cookies')
+    if (numOfCookies === null) {
+        localStorage.setItem('number_of_cookies', '0');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    validateLocalStorage();
+});
