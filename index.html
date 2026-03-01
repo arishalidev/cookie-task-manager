@@ -53,7 +53,7 @@
                                 <div
                                         popover
                                         id="selectNewOvenTagPopover"
-                                        class="bg-brown-300 fixed left-[anchor(left)] top-[anchor(bottom)] rounded-md p2"
+                                        class="bg-brown-200 fixed left-[anchor(left)] top-[anchor(bottom)] rounded-md p2"
                                         style="position-anchor: --selectNewOvenTagAnchor">
                                     <div class="p-2">
                                         <div class="px-1">
@@ -84,8 +84,35 @@
                                     </div>
                                 </div>
 
-                                <button class="bg-brown-300 rounded-md m-2 px-2 py-1" id="setPriority" type="button">⭐
+                                <button
+                                        class="bg-brown-300 rounded-md m-2 px-2 py-1"
+                                        id="setPriority"
+                                        type="button"
+                                        popovertarget="selectNewOvenPriorityPopover"
+                                        style="anchor-name: --selectNewOvenPriorityAnchor">⭐
                                 </button>
+
+                                <!-- Select priority popover -->
+                                <div
+                                        popover
+                                        id="selectNewOvenPriorityPopover"
+                                        class="bg-brown-200 fixed right-[anchor(right)] left-auto top-[anchor(bottom)] rounded-md p2"
+                                        style="position-anchor: --selectNewOvenPriorityAnchor">
+                                    <div class="p-2">
+                                        <div class="px-1">
+                                            <input type="radio" id="setHigh" name="newOvenPriority" value="high">
+                                            <label for="setHigh">High</label><br>
+                                        </div>
+                                        <div class="px-1">
+                                            <input type="radio" id="setMedium" name="newOvenPriority" value="medium">
+                                            <label for="setMedium">Medium</label><br>
+                                        </div>
+                                        <div class="px-1">
+                                            <input type="radio" id="setLow" name="newOvenPriority" value="low">
+                                            <label for="setLow">Low</label><br>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div>
