@@ -7,8 +7,8 @@ interface CookieData {
 interface OvenData {
     title: string;
     description: string;
-    tag: number;
-    priority: number;
+    tags: string[];
+    priority: string;
     cookies: CookieData[];
 
 }
@@ -18,9 +18,14 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
 
     const formData = new FormData(newOvenForm);
 
+    console.log(formData.getAll('newOvenTag'));
+    console.log(formData.get('newOvenPriority'));
+
     const ovenTitle: string = formData.get('title') as string ?? "";
     const ovenDescription: string = formData.get('description') as string ?? "";
     const ovenCookies: string[] = formData.getAll('cookies') as string[] ?? [];
+    const ovenTags: string[] = formData.getAll('newOvenTag') as string[] ?? [];
+    const ovenPriority: string = formData.get('newOvenPriority') as string ?? "";
 
     const cookies: CookieData[] = [];
     for (let i: number = 0; i < ovenCookies.length; i++) {
@@ -34,8 +39,8 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
     const ovenData: OvenData = {
         title: ovenTitle,
         description: ovenDescription,
-        tag: 0,
-        priority: 0,
+        tags: ovenTags,
+        priority: ovenPriority,
         cookies: cookies
     };
 
