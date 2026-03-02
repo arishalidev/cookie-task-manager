@@ -63,6 +63,7 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
 
     newOvenForm?.reset();
     document.querySelector<HTMLDivElement>('#newOvenPopover')?.hidePopover();
+    loadOvens(true);
 });
 
 newOvenForm?.addEventListener('reset', () => {
@@ -81,7 +82,7 @@ function validateLocalStorage() {
     }
 }
 
-function loadOvens() {
+function loadOvens(onlyLoadLastOven: boolean = false) {
     let numOfOvens: number = Number(localStorage.getItem('number_of_ovens') ?? '0');
     if (Number.isNaN(numOfOvens)) {
         numOfOvens = 0;
@@ -94,8 +95,14 @@ function loadOvens() {
         return;
     }
 
+    let ovenNumber = 0
     let ovensDivInnerHTML: string = "";
-    for (let ovenNumber = 0; ovenNumber < numOfOvens; ovenNumber++) {
+
+    if (onlyLoadLastOven) {
+        ovenNumber = numOfOvens - 1;
+    }
+
+    for (; ovenNumber < numOfOvens; ovenNumber++) {
 
         const ovenDataString: string = localStorage.getItem(`oven_data_${ovenNumber}`) ?? '';
 
@@ -138,7 +145,11 @@ function loadOvens() {
             </div>`;
     }
 
-    ovensDiv.innerHTML = ovensDivInnerHTML;
+    if (onlyLoadLastOven) {
+        ovensDiv.innerHTML += ovensDivInnerHTML;
+    } else {
+        ovensDiv.innerHTML = ovensDivInnerHTML;
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
