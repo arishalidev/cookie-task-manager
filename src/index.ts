@@ -25,6 +25,11 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
 
     const cookies: CookieData[] = [];
     for (let i: number = 0; i < ovenCookies.length; i++) {
+
+        if (ovenCookies.at(i)?.length === 0) {
+            continue;
+        }
+
         const cookie: CookieData = {
             description: ovenCookies[i]
         }
@@ -55,7 +60,6 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
     // Add a popup informing user new oven is created
     // Implement tag and priority buttons
     // Implement dynamic number of cookies when creating oven
-    // Display ovens and cookies in home page
 
     newOvenForm?.reset();
     document.querySelector<HTMLDivElement>('#newOvenPopover')?.hidePopover();
@@ -77,6 +81,67 @@ function validateLocalStorage() {
     }
 }
 
+function loadOvens() {
+    let numOfOvens: number = Number(localStorage.getItem('number_of_ovens') ?? '0');
+    if (Number.isNaN(numOfOvens)) {
+        numOfOvens = 0;
+    }
+
+    const ovensDiv = document.querySelector<HTMLDivElement>('#ovensDiv');
+
+    if (ovensDiv === null) {
+        console.error("Could not find ovensDiv!");
+        return;
+    }
+
+    let ovensDivInnerHTML: string = "";
+    for (let ovenNumber = 0; ovenNumber < numOfOvens; ovenNumber++) {
+
+        const ovenDataString: string = localStorage.getItem(`oven_data_${ovenNumber}`) ?? '';
+
+        if (ovenDataString.length === 0) {
+            console.error(`Could not find data for oven #${ovenNumber}`);
+            continue;
+        }
+
+        const ovenJSON: OvenData = JSON.parse(ovenDataString);
+        const ovenTitle: string = ovenJSON.title;
+        const ovenCookies: CookieData[] = ovenJSON.cookies;
+
+
+        let ovensListItemsHTML: string = '';
+        if (ovenCookies.length != 0) {
+            ovensListItemsHTML += `
+            <div class="my-2 p-3 bg-brown-300 rounded-2xl">
+                <ul>`;
+
+            for (let i = 0; i < ovenCookies.length; i++) {
+                ovensListItemsHTML += `<li>${ovenCookies.at(i)?.description}</li>`;
+            }
+
+            ovensListItemsHTML += `
+                </ul>
+            </div>`
+        }
+
+        ovensDivInnerHTML += `
+            <div class="m-4 p-3 bg-brown-200 rounded-2xl">
+                <a href="./oven.html">
+                    <div class="flex">
+                        <h2 class="text-2xl flex-1 text-center">${ovenTitle}</h2>
+                        <div class="w-16 text-center">
+                            <button>Menu</button>
+                        </div>
+                    </div>
+                    ${ovensListItemsHTML}
+                </a>
+            </div>`;
+    }
+
+    ovensDiv.innerHTML = ovensDivInnerHTML;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     validateLocalStorage();
+    loadOvens();
 });
