@@ -150,6 +150,16 @@ function loadOvens(onlyLoadLastOven: boolean = false) {
     } else {
         ovensDiv.innerHTML = ovensDivInnerHTML;
     }
+
+    if (definedCookies === null) {
+        console.error(`Could not find definedCookies label element!`);
+        return;
+    }
+
+    definedCookies.innerHTML = `
+        - <input name="cookies" id="defined-cookie-1"
+     class="bg-brown-300 rounded-md m-2 px-2 py-1" type="text"> <br>`;
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -167,7 +177,7 @@ definedCookies?.addEventListener('input', (e) => {
              class="bg-brown-300 rounded-md m-2 px-2 py-1" type="text"> <br>`;
 
             if (definedCookies === null) {
-                console.error(`Could not find definedCookies label element when defining cookie number ${numOfDefinedCookies}!`);
+                console.error(`Could not find definedCookies label element!`);
                 return;
             }
 
