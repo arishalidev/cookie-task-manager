@@ -1,4 +1,5 @@
 const newOvenForm = document.querySelector<HTMLFormElement>('#newOvenForm');
+const definedCookies = document.querySelector<HTMLLabelElement>('#defined-cookies');
 
 interface CookieData {
     description: string;
@@ -58,7 +59,6 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
 
     //TODO:
     // Add a popup informing user new oven is created
-    // Implement tag and priority buttons
     // Implement dynamic number of cookies when creating oven
 
     newOvenForm?.reset();
@@ -146,7 +146,7 @@ function loadOvens(onlyLoadLastOven: boolean = false) {
     }
 
     if (onlyLoadLastOven) {
-        ovensDiv.innerHTML += ovensDivInnerHTML;
+        ovensDiv.insertAdjacentHTML('beforeend', ovensDivInnerHTML)
     } else {
         ovensDiv.innerHTML = ovensDivInnerHTML;
     }
@@ -156,3 +156,23 @@ document.addEventListener('DOMContentLoaded', () => {
     validateLocalStorage();
     loadOvens();
 });
+
+definedCookies?.addEventListener('input', (e) => {
+    const labelElement = e.target as HTMLLabelElement;
+    if (labelElement.tagName === 'INPUT') {
+        const numOfDefinedCookies = definedCookies?.querySelectorAll('input').length;
+        if ('defined-cookie-' + numOfDefinedCookies === labelElement.id) {
+            const newDefinedCookieHTML = `
+                - <input name="cookies" id="defined-cookie-${numOfDefinedCookies + 1}"
+             class="bg-brown-300 rounded-md m-2 px-2 py-1" type="text"> <br>`;
+
+            if (definedCookies === null) {
+                console.error(`Could not find definedCookies label element when defining cookie number ${numOfDefinedCookies}!`);
+                return;
+            }
+
+            definedCookies.insertAdjacentHTML('beforeend', newDefinedCookieHTML);
+        }
+    }
+
+})
