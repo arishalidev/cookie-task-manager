@@ -56,11 +56,7 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
     const key = 'oven_data_' + (index).toString();
     localStorage.setItem(key, JSON.stringify(ovenData));
     localStorage.setItem('number_of_ovens', (index + 1).toString());
-
-    //TODO:
-    // Add a popup informing user new oven is created
-    // Implement dynamic number of cookies when creating oven
-
+    
     newOvenForm?.reset();
     document.querySelector<HTMLDivElement>('#newOvenPopover')?.hidePopover();
     loadOvens(true);
