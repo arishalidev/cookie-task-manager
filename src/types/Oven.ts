@@ -1,4 +1,6 @@
-interface OvenData {
+import {CookieData} from "./Cookie.js";
+
+export interface OvenData {
     title: string;
     description: string;
     tags: string[];

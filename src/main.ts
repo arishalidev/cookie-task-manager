@@ -1,4 +1,9 @@
-function loadOvens(onlyLoadLastOven: boolean = false) {
+import {validateLocalStorage} from "./utils/LocalStorage.js";
+import {resetDefinedCookies} from "./components/NewOven.js";
+import {CookieData} from "./types/Cookie.js";
+import {OvenData} from "./types/Oven.js";
+
+export function loadOvens(onlyLoadLastOven: boolean = false) {
     let numOfOvens: number = Number(localStorage.getItem('number_of_ovens') ?? '0');
     if (Number.isNaN(numOfOvens)) {
         numOfOvens = 0;

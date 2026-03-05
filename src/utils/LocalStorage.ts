@@ -1,4 +1,4 @@
-function validateLocalStorage() {
+export function validateLocalStorage() {
     const numOfOvens = localStorage.getItem('number_of_ovens')
     if (numOfOvens === null) {
         localStorage.setItem('number_of_ovens', '0');

@@ -1,3 +1,8 @@
+import {validateLocalStorage} from "../utils/LocalStorage.js";
+import {loadOvens} from "../main.js";
+import {CookieData} from "../types/Cookie.js";
+import {OvenData} from "../types/Oven.js";
+
 const newOvenForm = document.querySelector<HTMLFormElement>('#newOvenForm');
 const definedCookies = document.querySelector<HTMLLabelElement>('#defined-cookies');
 
@@ -74,7 +79,7 @@ definedCookies?.addEventListener('input', (e) => {
     }
 });
 
-function resetDefinedCookies() {
+export function resetDefinedCookies() {
     if (definedCookies === null) {
         console.error(`Could not find definedCookies label element!`);
         return;

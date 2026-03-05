@@ -1,3 +1,3 @@
-interface CookieData {
+export interface CookieData {
     description: string;
 }
