@@ -1,7 +1,7 @@
 import {validateLocalStorage} from "../utils/LocalStorage.js";
-import {loadOvens} from "../main.js";
 import {CookieData} from "../types/Cookie.js";
 import {OvenData} from "../types/Oven.js";
+import {loadOvens} from "./OvensView.js";
 
 const newOvenForm = document.querySelector<HTMLFormElement>('#newOvenForm');
 const definedCookies = document.querySelector<HTMLLabelElement>('#defined-cookies');
@@ -52,6 +52,8 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
 
     newOvenForm?.reset();
     document.querySelector<HTMLDivElement>('#newOvenPopover')?.hidePopover();
+
+    // Tell ovens view file to update ovens if
     loadOvens(true);
 });
 

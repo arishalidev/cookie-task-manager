@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Cookie Task Manager</title>
     <link href="./dist/output.css" rel="stylesheet">
+    <script type="module" src="./dist/main.js" defer></script>
 </head>
 <body class="bg-brown-100">
 <div class="flex">
@@ -14,10 +15,130 @@
                     <button class="w-40 text-left" type="button">Bob's Bakery</button>
                 </div>
                 <div>
-                    <button class="px-2 hover:bg-brown-300 rounded-xl" type="button">➕</button>
+                    <button class="px-2 hover:bg-brown-300 rounded-xl"
+                            type="button"
+                            id="newOven"
+                            popovertarget="newOvenPopover"
+                            style="anchor-name: --newOvenAnchor">
+                        ➕
+                    </button>
                 </div>
             </div>
 
+            <!-- New oven popover -->
+            <div popover
+                 id="newOvenPopover"
+                 class="bg-brown-400 fixed left-[anchor(right)] top-[anchor(bottom)] -ml-2 -mt-2 rounded-2xl p-4"
+                 style="position-anchor: --newOvenAnchor">
+                <form id="newOvenForm">
+                    <div>
+                        <div class="flex">
+                            <div>
+                                <label>
+                                    Title:
+                                    <input name="title" class="bg-brown-300 rounded-md m-2 px-2 py-1" type="text">
+                                </label>
+                            </div>
+                            <div>
+                                <button
+                                        class="bg-brown-300 rounded-md m-2 px-2 py-1"
+                                        id="setTag"
+                                        type="button"
+                                        popovertarget="selectNewOvenTagPopover"
+                                        style="anchor-name: --selectNewOvenTagAnchor">🏷️
+                                </button>
+
+                                <!-- Select tag popover -->
+                                <div
+                                        popover
+                                        id="selectNewOvenTagPopover"
+                                        class="bg-brown-200 fixed left-[anchor(left)] top-[anchor(bottom)] rounded-md p2"
+                                        style="position-anchor: --selectNewOvenTagAnchor">
+                                    <div class="p-2">
+                                        <div class="px-1">
+                                            <input type="checkbox" id="red" name="newOvenTag" value="red">
+                                            <label for="red">Red</label><br>
+                                        </div>
+                                        <div class="px-1">
+
+                                            <input type="checkbox" id="orange" name="newOvenTag" value="orange">
+                                            <label for="orange">Orange</label><br>
+                                        </div>
+                                        <div class="px-1">
+                                            <input type="checkbox" id="yellow" name="newOvenTag" value="yellow">
+                                            <label for="yellow">Yellow</label><br>
+                                        </div>
+                                        <div class="px-1">
+                                            <input type="checkbox" id="green" name="newOvenTag" value="green">
+                                            <label for="green">Green</label><br>
+                                        </div>
+                                        <div class="px-1">
+                                            <input type="checkbox" id="blue" name="newOvenTag" value="blue">
+                                            <label for="blue">Blue</label><br>
+                                        </div>
+                                        <div class="px-1">
+                                            <input type="checkbox" id="violet" name="newOvenTag" value="violet">
+                                            <label for="violet">Violet</label><br>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button
+                                        class="bg-brown-300 rounded-md m-2 px-2 py-1"
+                                        id="setPriority"
+                                        type="button"
+                                        popovertarget="selectNewOvenPriorityPopover"
+                                        style="anchor-name: --selectNewOvenPriorityAnchor">⭐
+                                </button>
+
+                                <!-- Select priority popover -->
+                                <div
+                                        popover
+                                        id="selectNewOvenPriorityPopover"
+                                        class="bg-brown-200 fixed right-[anchor(right)] left-auto top-[anchor(bottom)] rounded-md p2"
+                                        style="position-anchor: --selectNewOvenPriorityAnchor">
+                                    <div class="p-2">
+                                        <div class="px-1">
+                                            <input type="radio" id="setHigh" name="newOvenPriority" value="high">
+                                            <label for="setHigh">High</label><br>
+                                        </div>
+                                        <div class="px-1">
+                                            <input type="radio" id="setMedium" name="newOvenPriority" value="medium">
+                                            <label for="setMedium">Medium</label><br>
+                                        </div>
+                                        <div class="px-1">
+                                            <input type="radio" id="setLow" name="newOvenPriority" value="low">
+                                            <label for="setLow">Low</label><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label>
+                                Description:
+                                <br>
+                                <textarea
+                                        name="description"
+                                        class="bg-brown-300 rounded-md my-2 px-2 py-1 w-full"
+                                        rows="3"></textarea>
+                            </label>
+                        </div>
+                        <div>
+                            <p>Cookies:</p>
+                            <label id="defined-cookies">
+                                - <input name="cookies" id="defined-cookie-1"
+                                         class="bg-brown-300 rounded-md m-2 px-2 py-1" type="text"> <br>
+                            </label>
+                        </div>
+                        <div class="flex justify-end">
+                            <button class="bg-brown-200 rounded-md m-2 px-2 py-1" type="reset">Cancel</button>
+                            <button class="bg-brown-200 rounded-md m-2 px-2 py-1" type="submit">Create</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
 
             <div>
                 <div class="p-2 mx-3 my-1 hover:bg-brown-300 rounded-xl">
@@ -29,18 +150,18 @@
 
                 <div class="sidebar-list">
                     <div class="sidebar-dropdown">
-                        <button>Importance</button>
+                        <button>Priority</button>
                     </div>
 
                     <ul>
                         <li>
-                            <button>⭐⭐⭐</button>
+                            <button>High</button>
                         </li>
                         <li>
-                            <button>⭐⭐</button>
+                            <button>Medium</button>
                         </li>
                         <li>
-                            <button>⭐</button>
+                            <button>Low</button>
                         </li>
                     </ul>
                 </div>
@@ -99,6 +220,9 @@
         </aside>
     </div>
     <div class="grow">
+        <h1 class="text-4xl text-center my-6">Ovens</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2" id="ovensDiv">
+        </div>
     </div>
 </div>
 </body>
