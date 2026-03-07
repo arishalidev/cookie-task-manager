@@ -1,5 +1,4 @@
 import {OvenData} from "../types/Oven";
-import {CookieData} from "../types/Cookie";
 
 export function validateLocalStorage() {
     const numOfOvens = localStorage.getItem('number_of_ovens')

@@ -1,6 +1,5 @@
 import {resetDefinedCookies} from "./NewOven.js";
-import {OvenData} from "../types/Oven.js";
-import {CookieData} from "../types/Cookie.js";
+import {getOvenData} from "../utils/LocalStorage.js";
 
 export function loadOvens(onlyLoadLastOven: boolean = false) {
 
@@ -36,26 +35,24 @@ export function loadOvens(onlyLoadLastOven: boolean = false) {
 }
 
 function getOvenHTML(ovenNumber: number) {
-    const ovenDataString: string = localStorage.getItem(`oven_data_${ovenNumber}`) ?? '';
 
-    if (ovenDataString.length === 0) {
+    const ovenData = getOvenData(ovenNumber);
+
+    if (ovenData === null) {
         console.error(`Could not find data for oven #${ovenNumber}`);
         return "";
     }
 
-    const ovenJSON: OvenData = JSON.parse(ovenDataString);
-    const ovenTitle: string = ovenJSON.title;
-    const ovenCookies: CookieData[] = ovenJSON.cookies;
 
     let ovensListItemsHTML: string = '';
 
-    if (ovenCookies.length != 0) {
+    if (ovenData.cookies.length != 0) {
         ovensListItemsHTML += `
             <div class="my-2 p-3 bg-brown-300 rounded-2xl">
                 <ul>`;
 
-        for (let i = 0; i < ovenCookies.length; i++) {
-            ovensListItemsHTML += `<li>${ovenCookies.at(i)?.description}</li>`;
+        for (let i = 0; i < ovenData.cookies.length; i++) {
+            ovensListItemsHTML += `<li>${ovenData.cookies.at(i)?.description}</li>`;
         }
 
         ovensListItemsHTML += `
@@ -67,7 +64,7 @@ function getOvenHTML(ovenNumber: number) {
         <div class="m-4 p-3 bg-brown-200 rounded-2xl">
             <a href="./oven.html?oven_number=${ovenNumber}">
                 <div class="flex">
-                    <h2 class="text-2xl flex-1 text-center">${ovenTitle}</h2>
+                    <h2 class="text-2xl flex-1 text-center">${ovenData.title}</h2>
                     <div class="w-16 text-center">
                         <button>Menu</button>
                     </div>
