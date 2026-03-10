@@ -1,7 +1,7 @@
 import {validateLocalStorage} from "../utils/LocalStorage.js";
 import {CookieData} from "../types/Cookie.js";
 import {OvenData} from "../types/Oven.js";
-import {loadOvens} from "./OvensView.js";
+import {loadOvens} from "./OvensList.js";
 
 const newOvenForm = document.querySelector<HTMLFormElement>('#newOvenForm');
 const definedCookies = document.querySelector<HTMLLabelElement>('#defined-cookies');

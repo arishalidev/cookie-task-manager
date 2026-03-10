@@ -1,6 +1,6 @@
 import {validateLocalStorage} from "./utils/LocalStorage.js";
-import {loadOvens} from "./components/OvensView.js";
-import {loadOvenInformation} from "./components/Oven.js"
+import {loadOvens} from "./components/OvensList.js";
+import {loadOvenInformation} from "./components/OvenView.js"
 
 document.addEventListener('DOMContentLoaded', () => {
     validateLocalStorage();
