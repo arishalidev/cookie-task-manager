@@ -19,6 +19,7 @@ export function loadOvenInformation() {
     }
 
     if (ovenTitle === null) {
+        console.error("Could not find oven title heading element!");
         return;
     }
 
