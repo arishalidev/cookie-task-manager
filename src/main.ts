@@ -4,7 +4,7 @@ import {loadOvenInformation} from "./components/OvenView.js"
 
 document.addEventListener('DOMContentLoaded', () => {
     validateLocalStorage();
+    
     loadOvens();
-
     loadOvenInformation()
 });
