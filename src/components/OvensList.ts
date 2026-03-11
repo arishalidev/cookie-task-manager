@@ -1,7 +1,7 @@
 import {resetDefinedCookies} from "./NewOven.js";
 import {getOvenData} from "../utils/LocalStorage.js";
 
-export function loadOvens(onlyLoadLastOven: boolean = false) {
+export function loadAllOvens(onlyLoadLastOven: boolean = false) {
 
     // Only run this code on the home page
     if (!window.location.pathname.includes("index.html")) {

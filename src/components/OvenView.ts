@@ -1,8 +1,9 @@
 import {getOvenData} from "../utils/LocalStorage.js";
 
 const ovenTitle = document.querySelector('#oven-title') as HTMLHeadingElement;
+const rawSection = document.querySelector('#raw') as HTMLDivElement;
 
-export function loadOvenInformation() {
+export function loadOvenView() {
     const searchParams = new URLSearchParams(window.location.search);
     const ovenNumber = searchParams.get('oven_number');
 
@@ -25,4 +26,17 @@ export function loadOvenInformation() {
 
     ovenTitle.innerHTML = ovenData.title;
 
+    if (rawSection === null) {
+        console.error("Could not find raw div element!");
+        return;
+    }
+
+    for (let cookie of ovenData.cookies) {
+
+        const cookieHTML = `<span>${cookie.description}</span><br>`;
+
+        if (cookie.doneness === "raw") {
+            rawSection.insertAdjacentHTML("beforeend", cookieHTML);
+        }
+    }
 }
