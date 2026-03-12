@@ -25,11 +25,11 @@ function loadDnDSection(section: HTMLDivElement) {
         e.dataTransfer?.setData('text/plain', cookieClicked.id);
     });
 
-    section.addEventListener('dragover', (e: DragEvent) => {
+    section?.addEventListener('dragover', (e: DragEvent) => {
         e.preventDefault();
     });
 
-    section.addEventListener('drop', (e) => {
+    section?.addEventListener('drop', (e) => {
         const cookieId: string = e.dataTransfer?.getData('text/plain') as string ?? "id-not-found";
         const cookie = document.querySelector(`#${cookieId}`);
 
@@ -38,7 +38,8 @@ function loadDnDSection(section: HTMLDivElement) {
             return;
         }
 
-        section.insertAdjacentHTML('beforeend', cookie.getHTML());
+        section.insertAdjacentHTML('beforeend', cookie.outerHTML);
+        cookie.remove();
 
         e.preventDefault();
 
@@ -51,7 +52,7 @@ export function loadOvenView() {
 
     if (ovenNumber === null) {
         console.error("Could not find oven number in url!");
-        return
+        return;
     }
 
     const ovenData = getOvenData(Number(ovenNumber));
@@ -78,8 +79,7 @@ export function loadOvenView() {
                                 <span>
                                     ${cookie.description}
                                 </span>
-                            </div>
-                            <br>`;
+                            </div>`;
 
         if (cookie.doneness === "raw") {
             rawSection.insertAdjacentHTML("beforeend", cookieHTML);
