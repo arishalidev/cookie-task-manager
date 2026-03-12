@@ -25,6 +25,7 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
         }
 
         const cookie: CookieData = {
+            id: i,
             description: ovenCookies[i],
             doneness: "raw"
         }
