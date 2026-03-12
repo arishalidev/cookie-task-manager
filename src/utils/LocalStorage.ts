@@ -12,6 +12,10 @@ export function validateLocalStorage() {
     }
 }
 
+export function getAllOvens() {
+
+}
+
 export function getOvenData(ovenNumber: number) {
     const ovenDataString: string = localStorage.getItem(`oven_data_${ovenNumber}`) ?? '';
 
@@ -31,4 +35,29 @@ export function getOvenData(ovenNumber: number) {
     };
 
     return oven
+}
+
+export function createNewOven() {
+
+}
+
+export function setOvenData() {
+
+}
+
+
+export function getAllCookies() {
+
+}
+
+export function getCookieData() {
+
+}
+
+export function createNewCookie() {
+
+}
+
+export function setCookieData() {
+
 }
