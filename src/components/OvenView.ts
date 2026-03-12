@@ -33,7 +33,12 @@ export function loadOvenView() {
 
     for (let cookie of ovenData.cookies) {
 
-        const cookieHTML = `<span>${cookie.description}</span><br>`;
+        const cookieHTML = `<div class="p-2 border rounded-md">
+                                <span>
+                                    ${cookie.description}
+                                </span>
+                            </div>
+                            <br>`;
 
         if (cookie.doneness === "raw") {
             rawSection.insertAdjacentHTML("beforeend", cookieHTML);
