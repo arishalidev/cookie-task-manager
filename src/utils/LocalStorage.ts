@@ -65,7 +65,7 @@ export function getCookieData(ovenId: number, cookieId: number) {
     for (let cookieCheck of ovenJSON.cookies) {
         if (cookieCheck.id === cookieId) {
             cookie = {
-                id: cookieId,
+                id: cookieCheck.id,
                 description: cookieCheck.description,
                 doneness: cookieCheck.doneness
             }
@@ -76,10 +76,38 @@ export function getCookieData(ovenId: number, cookieId: number) {
     return cookie;
 }
 
-export function createNewCookie() {
+export function createNewCookie(description: string /* , doneness: string, tags: string[], priority: string */) {
 
 }
 
-export function setCookieData() {
+export function setCookieData(ovenId: number, cookieData: CookieData) {
+    const ovenData = getOvenData(ovenId);
+
+    if (ovenData === null) {
+        console.error(`Could not find oven data for oven id ${ovenId}`);
+        return;
+    }
+
+    for (let i = 0; i < ovenData.cookies.length; i++) {
+        let cookieCheck = ovenData.cookies.at(i);
+        if (cookieCheck === undefined) {
+            console.error("Could not find cookie data!")
+            break;
+        }
+
+        console.warn(cookieData.id);
+        
+        if (cookieCheck.id === cookieData.id) {
+            ovenData.cookies[i] = {
+                id: cookieData.id,
+                description: cookieData.description,
+                doneness: cookieData.doneness
+            }
+            break;
+        }
+    }
+
+    const key = 'oven_data_' + (ovenId).toString();
+    localStorage.setItem(key, JSON.stringify(ovenData));
 
 }

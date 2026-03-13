@@ -1,4 +1,4 @@
-import {getOvenData} from "../utils/LocalStorage.js";
+import {getOvenData, getCookieData, setCookieData} from "../utils/LocalStorage.js";
 
 const ovenTitle = document.querySelector('#oven-title') as HTMLHeadingElement;
 const rawSection = document.querySelector('#raw') as HTMLDivElement;
@@ -37,6 +37,27 @@ function loadDnDSection(section: HTMLDivElement) {
             console.error(`"Could not find cookie with id ${cookieId}`);
             return;
         }
+
+        //Get current oven number
+        const searchParams = new URLSearchParams(window.location.search);
+        const ovenNumber = searchParams.get('oven_number');
+
+        if (ovenNumber === null) {
+            console.error("Could not find oven number in url!");
+            return;
+        }
+
+        //TODO: Check if ovenNumber and cookie.id.substr are able to be numbers
+        const cookieData = getCookieData(Number(ovenNumber), Number(cookie.id.substring(11)));
+
+        if (cookieData === undefined) {
+            console.error(`Could not find cookie data for oven id ${ovenNumber} and cookie id ${cookie.id}`)
+            return;
+        }
+
+        cookieData.doneness = section.id;
+
+        setCookieData(Number(ovenNumber), cookieData)
 
         section.insertAdjacentHTML('beforeend', cookie.outerHTML);
         cookie.remove();
