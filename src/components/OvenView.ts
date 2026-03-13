@@ -90,11 +90,6 @@ export function loadOvenView() {
 
     ovenTitle.innerHTML = ovenData.title;
 
-    if (rawSection === null) {
-        console.error("Could not find raw section in oven view page!");
-        return;
-    }
-
     for (let cookie of ovenData.cookies) {
         const cookieHTML = `<div class="p-2 border rounded-md" draggable="true" id="cookie-num-${cookie.id}">
                                 <span>
@@ -104,6 +99,21 @@ export function loadOvenView() {
 
         if (cookie.doneness === "raw") {
             rawSection.insertAdjacentHTML("beforeend", cookieHTML);
+        }
+        if (cookie.doneness === "gooey") {
+            gooeySection.insertAdjacentHTML("beforeend", cookieHTML);
+        }
+        if (cookie.doneness === "chewy") {
+            chewySection.insertAdjacentHTML("beforeend", cookieHTML);
+        }
+        if (cookie.doneness === "crispy") {
+            crispSection.insertAdjacentHTML("beforeend", cookieHTML);
+        }
+        if (cookie.doneness === "crunchy") {
+            crunchySection.insertAdjacentHTML("beforeend", cookieHTML);
+        }
+        if (cookie.doneness === "eaten") {
+            eatenSection.insertAdjacentHTML("beforeend", cookieHTML);
         }
     }
 }
