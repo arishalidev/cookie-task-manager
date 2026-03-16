@@ -1,4 +1,4 @@
-import {getOvenData, getCookieData, setCookieData} from "../utils/LocalStorage.js";
+import {getOvenData, getCookieData, setCookieData, deleteCookie} from "../utils/LocalStorage.js";
 
 const ovenTitle = document.querySelector('#oven-title') as HTMLHeadingElement;
 const rawSection = document.querySelector('#raw') as HTMLDivElement;
@@ -32,6 +32,7 @@ function loadDnDSection(section: HTMLDivElement) {
     section?.addEventListener('drop', (e) => {
         const cookieId: string = e.dataTransfer?.getData('text/plain') as string ?? "id-not-found";
         const cookie = document.querySelector(`#${cookieId}`);
+        const sectionDoneness = section.id;
 
         if (cookie === null) {
             console.error(`"Could not find cookie with id ${cookieId}`);
@@ -55,7 +56,14 @@ function loadDnDSection(section: HTMLDivElement) {
             return;
         }
 
-        cookieData.doneness = section.id;
+        cookieData.doneness = sectionDoneness;
+
+        console.log(sectionDoneness)
+        if (sectionDoneness === "eaten") {
+            deleteCookie(Number(ovenNumber), cookieData.id);
+            cookie.remove();
+            return;
+        }
 
         setCookieData(Number(ovenNumber), cookieData)
 
@@ -91,7 +99,7 @@ export function loadOvenView() {
     ovenTitle.innerHTML = ovenData.title;
 
     for (let cookie of ovenData.cookies) {
-        const cookieHTML = `<div class="p-2 border rounded-md" draggable="true" id="cookie-num-${cookie.id}">
+        const cookieHTML = `<div class="p-2 border rounded-md m-2" draggable="true" id="cookie-num-${cookie.id}">
                                 <span>
                                     ${cookie.description}
                                 </span>

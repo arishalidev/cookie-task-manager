@@ -21,20 +21,10 @@ export function getOvenData(ovenNumber: number) {
     const ovenDataString: string = localStorage.getItem(`oven_data_${ovenNumber}`) ?? '';
 
     if (ovenDataString.length === 0) {
-        console.error(`Could not find data for oven #${ovenNumber}`);
-        return null;
+        throw new Error(`Could not find data for oven #${ovenNumber}`);
     }
 
-    const ovenJSON: OvenData = JSON.parse(ovenDataString);
-
-    const oven: OvenData = {
-        title: ovenJSON.title,
-        description: ovenJSON.description,
-        tags: ovenJSON.tags,
-        priority: ovenJSON.priority,
-        cookies: ovenJSON.cookies
-    };
-
+    const oven: OvenData = JSON.parse(ovenDataString);
     return oven;
 }
 
@@ -42,8 +32,10 @@ export function createNewOven() {
 
 }
 
-export function setOvenData() {
-
+export function setOvenData(ovenId: number, oven: OvenData) {
+    const key = 'oven_data_' + (ovenId).toString();
+    localStorage.setItem(key, JSON.stringify(oven));
+    return true;
 }
 
 export function getAllCookies() {
@@ -51,18 +43,11 @@ export function getAllCookies() {
 }
 
 export function getCookieData(ovenId: number, cookieId: number) {
-    const ovenDataString = localStorage.getItem(`oven_data_${ovenId}`);
 
-    if (ovenDataString === null) {
-        console.error(`Could not find data for oven #${ovenId}`);
-        return undefined;
-    }
-
-    const ovenJSON: OvenData = JSON.parse(ovenDataString);
-
+    const oven: OvenData = getOvenData(ovenId)
     let cookie: CookieData | undefined;
 
-    for (let cookieCheck of ovenJSON.cookies) {
+    for (let cookieCheck of oven.cookies) {
         if (cookieCheck.id === cookieId) {
             cookie = {
                 id: cookieCheck.id,
@@ -94,8 +79,6 @@ export function setCookieData(ovenId: number, cookieData: CookieData) {
             console.error("Could not find cookie data!")
             break;
         }
-
-        console.warn(cookieData.id);
         
         if (cookieCheck.id === cookieData.id) {
             ovenData.cookies[i] = {
@@ -107,7 +90,21 @@ export function setCookieData(ovenId: number, cookieData: CookieData) {
         }
     }
 
-    const key = 'oven_data_' + (ovenId).toString();
-    localStorage.setItem(key, JSON.stringify(ovenData));
+    setOvenData(ovenId, ovenData);
+}
+
+export function deleteCookie(ovenId: number, cookieId: number) {
+
+    const oven: OvenData = getOvenData(ovenId)
+
+    for (let i = 0; i < oven.cookies.length; i++) {
+        if (oven.cookies.at(i)?.id === cookieId) {
+            oven.cookies.splice(i, 1);
+            setOvenData(ovenId, oven);
+            return true;
+        }
+    }
+
+    return false;
 
 }
