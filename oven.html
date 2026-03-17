@@ -223,11 +223,15 @@
         </aside>
     </div>
     <div class="grow">
-        <h1 class="text-center m-8 text-4xl" id="oven-title"></h1>
+        <div class="flex">
+            <button id="back-button" class="m-2 p-2 bg-brown-200 self-center">Back</button>
+            <h1 class="text-center m-8 text-4xl grow" id="oven-title"></h1>
+            <button class="m-2 p-2 bg-brown-200 self-center invisible">Back</button>
+
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-8">
             <div id="raw" class="bg-brown-400/20 min-h-36 m-2 rounded-lg">
                 <h2 class="text-center text-2xl m-2">Raw</h2>
-
             </div>
             <div id="gooey" class="bg-brown-400/40 min-h-36 m-2 rounded-lg">
                 <h2 class="text-center text-2xl m-2">Gooey</h2>

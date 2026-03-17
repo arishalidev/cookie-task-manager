@@ -8,6 +8,7 @@ const crispSection = document.querySelector('#crispy') as HTMLDivElement;
 const crunchySection = document.querySelector('#crunchy') as HTMLDivElement;
 const eatenSection = document.querySelector('#eaten') as HTMLDivElement;
 
+const backButton = document.querySelector('#back-button') as HTMLButtonElement;
 
 export function loadAllDndSections() {
     loadDnDSection(rawSection);
@@ -125,3 +126,7 @@ export function loadOvenView() {
         }
     }
 }
+
+backButton?.addEventListener('click', (e) => {
+    window.location.href = './index.html'
+})

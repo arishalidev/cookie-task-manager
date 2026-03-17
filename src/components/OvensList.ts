@@ -2,12 +2,7 @@ import {resetDefinedCookies} from "./NewOven.js";
 import {getOvenData} from "../utils/LocalStorage.js";
 
 export function loadAllOvens(onlyLoadLastOven: boolean = false) {
-
-    // Only run this code on the home page
-    if (!window.location.pathname.includes("index.html")) {
-        return;
-    }
-
+    
     let numOfOvens: number = Number(localStorage.getItem('number_of_ovens') ?? '0');
     if (Number.isNaN(numOfOvens)) {
         numOfOvens = 0;
