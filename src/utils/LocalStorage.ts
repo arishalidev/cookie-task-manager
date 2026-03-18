@@ -24,7 +24,6 @@ export function getOvenData(ovenNumber: number) {
 }
 
 export function createNewOven(title: string, description: string, tags: string[], priority: string, cookies: CookieData[]) {
-
     const id: number = getNumberOfOvens();
 
     const oven: OvenData = {
@@ -42,8 +41,8 @@ export function createNewOven(title: string, description: string, tags: string[]
     return oven;
 }
 
-export function setOvenData(ovenId: number, oven: OvenData) {
-    const key = 'oven_data_' + (ovenId).toString();
+export function setOvenData(oven: OvenData) {
+    const key = 'oven_data_' + (oven.id).toString();
     localStorage.setItem(key, JSON.stringify(oven));
     return true;
 }
@@ -71,7 +70,19 @@ export function getCookieData(ovenId: number, cookieId: number) {
     return cookie;
 }
 
-export function createNewCookie(description: string /* , doneness: string, tags: string[], priority: string */) {
+export function createNewCookie(ovenId: number, description: string, doneness: string) {
+    const oven: OvenData = getOvenData(ovenId);
+    const cookieId: number = oven.cookies.length + 1;
+
+    const cookie: CookieData = {
+        id: cookieId,
+        description: description,
+        doneness: doneness
+    }
+
+    oven.cookies.push(cookie);
+
+    setOvenData(oven)
 
 }
 
@@ -100,17 +111,16 @@ export function setCookieData(ovenId: number, cookieData: CookieData) {
         }
     }
 
-    setOvenData(ovenId, ovenData);
+    setOvenData(ovenData);
 }
 
 export function deleteCookie(ovenId: number, cookieId: number) {
-
     const oven: OvenData = getOvenData(ovenId)
 
     for (let i = 0; i < oven.cookies.length; i++) {
         if (oven.cookies.at(i)?.id === cookieId) {
             oven.cookies.splice(i, 1);
-            setOvenData(ovenId, oven);
+            setOvenData(oven);
             return true;
         }
     }

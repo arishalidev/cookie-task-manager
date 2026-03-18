@@ -1,4 +1,4 @@
-import {createNewOven, getNumberOfOvens} from "../utils/LocalStorage.js";
+import {createNewOven} from "../utils/LocalStorage.js";
 import {CookieData} from "../types/Cookie.js";
 import {loadAllOvens} from "./OvensList.js";
 

@@ -87,10 +87,6 @@ export function loadOvenView() {
 
     const ovenData = getOvenData(Number(ovenNumber));
 
-    if (ovenData === null) {
-        console.error(`Could not get oven data for oven number ${ovenNumber}`);
-        return;
-    }
 
     if (ovenTitle === null) {
         console.error("Could not find oven title heading element!");
@@ -127,6 +123,6 @@ export function loadOvenView() {
     }
 }
 
-backButton?.addEventListener('click', (e) => {
+backButton?.addEventListener('click', () => {
     window.location.href = './index.html'
 })
