@@ -1,6 +1,5 @@
-import {validateLocalStorage} from "../utils/LocalStorage.js";
+import {createNewOven, getNumberOfOvens} from "../utils/LocalStorage.js";
 import {CookieData} from "../types/Cookie.js";
-import {OvenData} from "../types/Oven.js";
 import {loadAllOvens} from "./OvensList.js";
 
 const newOvenForm = document.querySelector<HTMLFormElement>('#newOvenForm');
@@ -33,24 +32,7 @@ newOvenForm?.addEventListener('submit', (event: SubmitEvent) => {
         cookies.push(cookie);
     }
 
-    const ovenData: OvenData = {
-        title: ovenTitle,
-        description: ovenDescription,
-        tags: ovenTags,
-        priority: ovenPriority,
-        cookies: cookies
-    };
-
-    let index: number = Number(localStorage.getItem('number_of_ovens'));
-
-    if (Number.isNaN(index)) {
-        validateLocalStorage();
-        index = 0;
-    }
-
-    const key = 'oven_data_' + (index).toString();
-    localStorage.setItem(key, JSON.stringify(ovenData));
-    localStorage.setItem('number_of_ovens', (index + 1).toString());
+    createNewOven(ovenTitle, ovenDescription, ovenTags, ovenPriority, cookies);
 
     newOvenForm?.reset();
     document.querySelector<HTMLDivElement>('#newOvenPopover')?.hidePopover();

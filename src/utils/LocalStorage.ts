@@ -6,11 +6,6 @@ export function validateLocalStorage() {
     if (numOfOvens === null) {
         localStorage.setItem('number_of_ovens', '0');
     }
-
-    const numOfCookies = localStorage.getItem('number_of_cookies')
-    if (numOfCookies === null) {
-        localStorage.setItem('number_of_cookies', '0');
-    }
 }
 
 export function getAllOvens() {
@@ -28,8 +23,23 @@ export function getOvenData(ovenNumber: number) {
     return oven;
 }
 
-export function createNewOven() {
+export function createNewOven(title: string, description: string, tags: string[], priority: string, cookies: CookieData[]) {
 
+    const id: number = getNumberOfOvens();
+
+    const oven: OvenData = {
+        title: title,
+        id: id,
+        description: description,
+        tags: tags,
+        priority: priority,
+        cookies: cookies
+    };
+
+    const key = 'oven_data_' + (id).toString();
+    localStorage.setItem(key, JSON.stringify(oven));
+    incrementNumberOfOvens(id);
+    return oven;
 }
 
 export function setOvenData(ovenId: number, oven: OvenData) {
@@ -79,7 +89,7 @@ export function setCookieData(ovenId: number, cookieData: CookieData) {
             console.error("Could not find cookie data!")
             break;
         }
-        
+
         if (cookieCheck.id === cookieData.id) {
             ovenData.cookies[i] = {
                 id: cookieData.id,
@@ -107,4 +117,24 @@ export function deleteCookie(ovenId: number, cookieId: number) {
 
     return false;
 
+}
+
+export function getNumberOfOvens() {
+    let ovenCount: number = Number(localStorage.getItem('number_of_ovens'));
+
+    if (Number.isNaN(ovenCount)) {
+        validateLocalStorage();
+        ovenCount = 0;
+    }
+
+    return ovenCount;
+}
+
+export function incrementNumberOfOvens(numberOfOvens?: number) {
+
+    if (numberOfOvens === undefined) {
+        numberOfOvens = getNumberOfOvens();
+    }
+
+    localStorage.setItem('number_of_ovens', (numberOfOvens + 1).toString());
 }
