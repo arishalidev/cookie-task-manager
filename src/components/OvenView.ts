@@ -1,4 +1,5 @@
-import {getOvenData, getCookieData, setCookieData, deleteCookie} from "../utils/LocalStorage.js";
+import {getOvenData, getCookieData, setCookieData, deleteCookie, createNewCookie} from "../utils/LocalStorage.js";
+import {CookieData} from "../types/Cookie";
 
 const ovenTitle = document.querySelector('#oven-title') as HTMLHeadingElement;
 const rawSection = document.querySelector('#raw') as HTMLDivElement;
@@ -9,6 +10,24 @@ const crunchySection = document.querySelector('#crunchy') as HTMLDivElement;
 const eatenSection = document.querySelector('#eaten') as HTMLDivElement;
 
 const backButton = document.querySelector('#back-button') as HTMLButtonElement;
+
+const createRawCookieButton = document.querySelector('#create-raw-cookie') as HTMLButtonElement;
+
+function getOvenNumber() {
+    const searchParams = new URLSearchParams(window.location.search);
+    const ovenNumber = searchParams.get('oven_number');
+
+    if (ovenNumber === null) {
+        throw new Error("Could not find oven number in search parameters!");
+    }
+
+    if (isNaN(Number(ovenNumber))) {
+        throw new Error("Invalid oven number in search parameters!");
+    }
+
+    return Number(ovenNumber);
+
+}
 
 export function loadAllDndSections() {
     loadDnDSection(rawSection);
@@ -41,15 +60,7 @@ function loadDnDSection(section: HTMLDivElement) {
         }
 
         //Get current oven number
-        const searchParams = new URLSearchParams(window.location.search);
-        const ovenNumber = searchParams.get('oven_number');
-
-        if (ovenNumber === null) {
-            console.error("Could not find oven number in url!");
-            return;
-        }
-
-        //TODO: Check if ovenNumber and cookie.id.substr are able to be numbers
+        const ovenNumber = getOvenNumber();
         const cookieData = getCookieData(Number(ovenNumber), Number(cookie.id.substring(11)));
 
         if (cookieData === undefined) {
@@ -77,15 +88,7 @@ function loadDnDSection(section: HTMLDivElement) {
 }
 
 export function loadOvenView() {
-    const searchParams = new URLSearchParams(window.location.search);
-    const ovenNumber = searchParams.get('oven_number');
-
-    if (ovenNumber === null) {
-        console.error("Could not find oven number in url!");
-        return;
-    }
-
-    const ovenData = getOvenData(Number(ovenNumber));
+    const ovenData = getOvenData(getOvenNumber());
 
 
     if (ovenTitle === null) {
@@ -125,4 +128,24 @@ export function loadOvenView() {
 
 backButton?.addEventListener('click', () => {
     window.location.href = './index.html'
-})
+});
+
+createRawCookieButton?.addEventListener('click', () => {
+
+    const cookie: CookieData = {
+        id: -1,
+        description: "hi",
+        doneness: "raw"
+    }
+
+    const cookieId: number = createNewCookie(getOvenNumber(), cookie.description, cookie.doneness);
+
+    const cookieHTML = `<div class="p-2 border rounded-md m-2" draggable="true" id="cookie-num-${cookieId}">
+                                <span>
+                                    ${cookie.description}
+                                </span>
+                            </div>`;
+
+    rawSection.insertAdjacentHTML('beforeend', cookieHTML);
+
+});

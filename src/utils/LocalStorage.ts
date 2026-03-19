@@ -84,6 +84,7 @@ export function createNewCookie(ovenId: number, description: string, doneness: s
 
     setOvenData(oven)
 
+    return cookieId;
 }
 
 export function setCookieData(ovenId: number, cookieData: CookieData) {
